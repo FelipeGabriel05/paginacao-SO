@@ -44,6 +44,18 @@
   }
 }
 
+:root {
+  --bg: #120D1F;
+  --bg-secondary: #1A1329;
+  --card: #211936;
+  --border: #382653;
+
+  --text: #B8AEC9;
+  --text-h: #F5F3FF;
+
+  --accent: #8B5CF6;
+}
+
 body {
   margin: 0;
   background: var(--bg);

@@ -1,0 +1,103 @@
+.configuration-card {
+    background: var(--card);
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.box-config {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.box-pai {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.box{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#algoritmo,
+#frames,
+#pages {
+    background: #120D1F;
+    color: var(--text-h);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-family: var(--sans);
+    font-size: 15px;
+    width: 70%;
+    box-sizing: border-box;
+}
+
+#algoritmo:focus,
+#frames:focus,
+#pages:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+
+.start-button {
+    background: var(--success);
+    color: #101814;
+    border: 1px solid var(--success);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--sans);
+    cursor: pointer;
+    transition: 0.2s ease;
+    margin-right: 10px;
+}
+
+.start-button:hover {
+    background: #86efac;
+    border-color: #86efac;
+}
+
+.start-button:active {
+    transform: scale(0.98);
+}
+
+.reset-button {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--sans);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.reset-button:hover {
+    background: var(--bg-secondary);
+    color: var(--text-h);
+    border-color: var(--border);
+}
+
+.reset-button:active {
+    transform: scale(0.98);
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
