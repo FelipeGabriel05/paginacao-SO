@@ -18,9 +18,14 @@ const historico = [
         n_pages: `Página ${pages[2]}`,
         hit: "Acerto"
     },
+    {
+        step: 4,
+        n_pages: `Página ${pages[3]}`,
+        hit: "Acerto"
+    },
 ]
 
-const passoAtual = 3;
+const passoAtual = 4;
 
 const HistoryCard = () => {
     return (
