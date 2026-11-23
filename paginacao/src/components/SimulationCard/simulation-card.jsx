@@ -1,10 +1,12 @@
 import "./index.css";
 import Frame from "./frames";
+import { useState } from "react";
 
 const SimulationCard = () => {
+    const [step, setStep] = useState(1)
+    const total = 20
     return (
         <div className="simulation-card">
-            {/* <Simulacao /> */}
 
             <div className="simulation-controls">
                 <button className="previous-button">Anterior</button>
@@ -13,7 +15,7 @@ const SimulationCard = () => {
             </div>
 
             <div className="box-step">
-                Passo: 4/20
+                Passo: {step}/20
             </div>
 
             <div className="simulation-legend">
