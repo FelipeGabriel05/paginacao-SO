@@ -26,7 +26,7 @@ const ConfigurationCard = () => {
 
                         <div className="box">
                             <label htmlFor="frames">Frames (1 a 10): </label>
-                            <input type="number" name="frames" id="frames" required/>
+                            <input type="number" name="frames" id="frames"  min="1" max="10" required/>
                         </div>
                     </div>
 
