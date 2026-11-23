@@ -1,0 +1,215 @@
+.simulation-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    background: var(--card);
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto 0;
+    padding: 24px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+/* Botões */
+
+.simulation-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.simulation-controls button {
+    padding: 9px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    color: #ffffff;
+
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/* Anterior */
+
+.previous-button {
+    background: #3b82f6;
+}
+
+.previous-button:hover {
+    background: #60a5fa;
+}
+
+
+/* Próximo */
+
+.next-button {
+    background: var(--success);
+    color: #101814 !important;
+}
+
+.next-button:hover {
+    background: #86efac;
+}
+
+
+/* Auto Play */
+
+.autoplay-button {
+    background: #f59e0b;
+}
+
+.autoplay-button:hover {
+    background: #fbbf24;
+}
+
+
+.simulation-controls button:active {
+    transform: scale(0.97);
+}
+
+
+/* Passo atual */
+
+.box-step {
+    padding: 12px 16px;
+
+    background: var(--bg-secondary);
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    color: var(--text-h);
+    font-weight: 600;
+}
+
+
+/* Legenda */
+
+.simulation-legend {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--text);
+    font-size: 14px;
+}
+
+.legend-square {
+    width: 14px;
+    height: 14px;
+
+    display: inline-block;
+
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+/* Acerto */
+
+.legend-square.hit {
+    background: var(--success);
+    border: 1px solid var(--success);
+}
+
+/* Falha */
+
+.legend-square.fault {
+    background: var(--error);
+    border: 1px solid var(--error);
+}
+
+/* Quadro vazio */
+
+
+.legend-square.empty {
+    width: 15px;
+    height: 15px;
+
+    background-color: var(--bg);
+    
+    background-image:
+        linear-gradient(
+            90deg,
+            var(--text-muted) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            0deg,
+            var(--text-muted) 1px,
+            transparent 1px
+        );
+
+    background-size: 5px 5px;
+
+    border: 1px solid var(--text-muted);
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+
+/* Histórico do passo */
+
+.box-step-history {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    padding: 16px;
+
+    background: var(--bg-secondary);
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    color: var(--text);
+    font-size: 14px;
+}
+
+.box-step-history strong {
+    color: var(--text-h);
+}
+
+.fault-text {
+    color: var(--error);
+    font-weight: 600;
+}
+
+
+/* Frames */
+
+.box-frame {
+    padding: 16px;
+
+    background: var(--bg-secondary);
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.box-frame h3 {
+    margin: 0 0 14px;
+
+    color: var(--text-h);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.frames-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}

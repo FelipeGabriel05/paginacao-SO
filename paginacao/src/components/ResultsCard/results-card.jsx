@@ -1,17 +1,32 @@
-import { Resultados } from "../Header/header";
+// import { Resultados } from "../Header/header";
+import "./index.css";
 
 const ResultsCard = () => {
     return (
         <>
             <div>
-                <Resultados/>
-                <div>
-                    <label htmlFor="">Algoritmo usado: FIFO</label>
-                    <label htmlFor="">Frames: 3</label>
-                    <label htmlFor="">Referências: 20</label>
-                    <label htmlFor="">Taxa de faltas: 60%</label>
-                    <label htmlFor="">Evicções: 9</label>
-                    <label htmlFor="">Escritas em disco: 0</label>
+                {/* <Resultados/> */}
+                <div className="results-card">
+                    <div className="box-inform">
+                        <h3>Frames</h3>
+                        <p>3</p>
+                    </div>
+                    <div className="box-inform">
+                        <h3>Referências</h3>
+                        <p>20</p>
+                    </div>
+                    <div className="box-inform">
+                        <h3>Taxa de faltas</h3>
+                        <p>60%</p>
+                    </div>
+                    <div className="box-inform">
+                        <h3>Evicções</h3>
+                        <p>9</p>
+                    </div>
+                    <div className="box-inform">
+                        <h3>Escritas em disco</h3>
+                        <p>0</p>
+                    </div>
                 </div>
             </div>
         </>
