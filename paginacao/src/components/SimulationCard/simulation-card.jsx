@@ -1,4 +1,5 @@
 import "./index.css";
+import Frame from "./frames";
 
 const SimulationCard = () => {
     return (
@@ -48,7 +49,25 @@ const SimulationCard = () => {
                 <h3>Frames do buffer</h3>
 
                 <div className="frames-container">
-                    {/* Os frames serão adicionados aqui depois */}
+                    <Frame numero={0} pagina={7} estado="hit" />
+                    <Frame numero={1} pagina={0} estado="fault" />
+                    <Frame numero={2} pagina={1} estado="unused" />
+                    <Frame numero={3} pagina={null} estado="empty" />
+                    <Frame numero={0} pagina={null} estado="empty" />
+                    <Frame numero={1} pagina={null} estado="empty" />
+                    <Frame numero={2} pagina={null} estado="empty" />
+                    <Frame numero={3} pagina={null} estado="empty" />
+                    <Frame numero={0} pagina={null} estado="empty" />
+                    <Frame numero={0} pagina={null} estado="empty" />
+
+                    {/* {frames.map((frame, index) => (
+                        <Frame
+                            key={index}
+                            numero={index}
+                            pagina={frame.pagina}
+                            estado={frame.estado}
+                        />
+                    ))} */}
                 </div>
             </div>
         </div>

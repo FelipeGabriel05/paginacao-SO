@@ -210,6 +210,89 @@
 
 .frames-container {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
+}
+
+.frame {
+    width: 80px;
+    height: 80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    transition: 0.2s ease;
+}
+
+.frame-number {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.frame-page {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+/* Frame com acerto = cor verde */
+.frame.hit {
+    background-color: rgba(74, 222, 128, 0.15);
+    border: 2px solid var(--success);
+}
+
+.frame.hit .frame-number {
+    color: var(--success);
+}
+
+.frame.hit .frame-page {
+    color: var(--text-h);
+}
+
+/* Frame com falha = cor vermelho */
+.frame.fault {
+    background-color: rgba(248, 113, 113, 0.15);
+    border: 2px solid var(--error);
+}
+
+.frame.fault .frame-number {
+    color: var(--error);
+}
+
+.frame.fault .frame-page {
+    color: var(--text-h);
+}
+
+/* Frame vazio */
+.frame.empty {
+    border-style: dashed;
+    background-size: 8px 8px;
+    border: 1px solid darkslategray dashed;
+}
+
+.frame.empty .frame-number {
+    color: var(--text-muted);
+}
+
+.frame.empty .frame-page {
+    color: var(--text-muted);
+}
+
+/* Frame não usado no momento */
+.frame.unused {
+    border: 2px solid #ffffff;
+    color: #181323;
+}
+
+.frame.unused .frame-number {
+    color:  #ffffff;
+}
+
+.frame.unused .frame-page {
+    color: var(--text-h);
 }
