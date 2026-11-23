@@ -1,0 +1,87 @@
+.history-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    background: var(--card);
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto 20px;
+    padding: 24px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+h3 {
+    margin: 0 0 8px;
+    color: var(--text-h);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.box-history {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: var(--bg-secondary);;
+    width: 100%;
+    min-height: 125px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.steps {
+    display: block;
+
+    width: 90%;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+
+    background-color: var(--bg-secondary);
+
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--border);
+    border-radius: 7px;
+
+    box-sizing: border-box;
+
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: 0.2s ease;
+}
+
+/* Resultado: ACERTO */
+
+.steps.hit {
+    border-left-color: var(--success);
+}
+
+/* Resultado: FALHA */
+
+.steps.fault {
+    border-left-color: var(--error);
+}
+
+/* Passo atualmente selecionado */
+
+.steps.active {
+    background-color: #302544;
+    color: var(--text-h);
+    box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.2);
+}
+
+.steps.active.fault {
+    border-color: var(--accent) var(--accent) var(--accent) var(--error);
+}
+
+.steps.active.hit {
+    border-color: var(--accent) var(--accent) var(--accent) var(--success);
+}
