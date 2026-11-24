@@ -4,24 +4,35 @@ import { criarResultado } from "../models/SimulationResult";
 // passando como parâmetro um vetor
 function fifo(Lista_pages, total_frames) {
     // vetor dinâmico com base no total de frames
-    const frames = criarFrames(total_frames)
+    const frames = criarFrames(total_frames);
     const resultado = criarResultado();
+
     let ponteiro = 0;
 
-    for(let i = 0; i < Lista_pages.length; i++) {
-        const pagina = Lista_pages[i];
+    for (let i = 0; i < Lista_pages.length; i++) {
+        const referencia = Lista_pages[i];
+
+        const pagina = referencia.pagina;
+        const operacao = referencia.operacao;
 
         // Verifica se a página já está na memória
         // findIndex retorna -1 quando não encontra nenhum elemento.
-        // Se ele encontra o elemento, ele retorna o índice onde ele está.
+        // Se encontra, retorna o índice onde ele está.
         const frameEncontrado = frames.findIndex(
             frame => frame.pagina === pagina
         );
 
-        // Acerto
-        if(frameEncontrado !== -1) {
-            frames[frameEncontrado].acessos++;
-            frames[frameEncontrado].ultimoAcesso = i;
+        // ACERTO
+        if (frameEncontrado !== -1) {
+            const frame = frames[frameEncontrado];
+
+            frame.acessos++;
+            frame.ultimoAcesso = i;
+
+            // Se a operação for W, a página foi modificada.
+            if (operacao === "W") {
+                frame.modificada = true;
+            }
 
             resultado.historico.push({
                 passo: i + 1,
@@ -33,28 +44,48 @@ function fifo(Lista_pages, total_frames) {
             continue;
         }
 
-        // Falha
+        // FALHA
         resultado.faltas++;
+
         // Procura o primeiro frame vazio
         const frameVazio = frames.findIndex(
             frame => frame.pagina === null
         );
 
         if (frameVazio !== -1) {
+
             // Coloca a página no menor frame vazio
             frames[frameVazio].pagina = pagina;
             frames[frameVazio].carregadaEm = i;
             frames[frameVazio].ultimoAcesso = i;
             frames[frameVazio].acessos = 1;
+
+            // Define se a página entrou modificada. Se a operação = W retorna true.
+            frames[frameVazio].modificada = operacao === "W";
+
         } else {
+
             // Todos os frames estão ocupados
-            frames[ponteiro].pagina = pagina;   
+
+            // Verifica se a página que será removida
+            // foi modificada. Se true significa que vai ocorrer uma escrita.
+            if (frames[ponteiro].modificada) {
+                resultado.escritas++;
+            }
+
+            // Substitui a página
+            frames[ponteiro].pagina = pagina;
             frames[ponteiro].carregadaEm = i;
             frames[ponteiro].ultimoAcesso = i;
             frames[ponteiro].acessos = 1;
 
+            // A nova página começa modificada somente
+            // se a operação atual for W.
+            frames[ponteiro].modificada = operacao === "W";
+
             resultado.eviccoes++;
-            // FIFO: vai para o próximo frame a que está há mais tempo nesse momento.
+
+            // FIFO: vai para o próximo frame.
             ponteiro = (ponteiro + 1) % total_frames;
         }
 
@@ -64,16 +95,21 @@ function fifo(Lista_pages, total_frames) {
             resultado: "falha",
             frames: structuredClone(frames)
         });
-        // structuredClone(frames) = salva o histórico de cada rodada.
+        // structuredClone(frames) = faz uma cópia. Representa o histórico desse momento de execução.
     }
+
+    // Calcula a taxa de faltas
+    const taxaFaltas = (resultado.faltas / Lista_pages.length) * 100;
 
     return {
         frames,
+        referencias: Lista_pages.length,
         faltas: resultado.faltas,
+        taxaFaltas: taxaFaltas,
         eviccoes: resultado.eviccoes,
         escritas: resultado.escritas,
         historico: resultado.historico
-    }
+    };
 }
 
 export default fifo;
