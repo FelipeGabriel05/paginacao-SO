@@ -17,23 +17,49 @@ const ConfigurationCard = () => {
     const [evic, setEvics] = useState(0);
     const [w_disco, setW_disco] = useState(0);
     const [resultado, setResultado] = useState(null);
+    const [step, setStep] = useState(1);
+    const [faltas, setFaltas] = useState(0);
+
+    const inputsT = [
+        "7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1", 
+        "1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5", 
+        "1w, 2r, 3w, 1r, 4r, 2w, 5r, 3r, 1w, 4r"
+    ]
 
     const iniciarSimulacao = () => {
-        const listaPages = parsePages(pages);
-        setTotalPages(listaPages.length);
-        console.log("Algoritmo:", algoritmo);
-        console.log("Frames:", frames);
-        console.log("Páginas:", listaPages);
+        try {
+            const listaPages = parsePages(pages);
+            setTotalPages(listaPages.length);
+            console.log("Algoritmo:", algoritmo);
+            console.log("Frames:", frames);
+            console.log("Páginas:", listaPages);
 
-        if (algoritmo === "FIFO") {
-            const resultado = fifo(listaPages, frames);
-            setResultado(resultado);
-            console.log("Resultado:", resultado);
+            if (algoritmo === "FIFO") {
+                const resultado = fifo(listaPages, frames);
+                setResultado(resultado);
+                console.log("Resultado:", resultado);
 
-            setTaxas(resultado.taxaFaltas);
-            setEvics(resultado.eviccoes);
-            setW_disco(resultado.escritas);
-        }
+                setTaxas(resultado.taxaFaltas);
+                setEvics(resultado.eviccoes);
+                setW_disco(resultado.escritas);
+                setFaltas(resultado.faltas);
+            }
+        }   catch (erro) {
+                console.error(
+                    "Erro ao iniciar simulação:",
+                    erro
+                );
+            }
+        };
+
+    const resetar = () => {
+        setResultado(null);
+        setStep(1);
+        setTotalPages(0);
+        setTaxas(0);
+        setEvics(0);
+        setW_disco(0);
+        setFaltas(0);
     };
 
     return (
@@ -106,6 +132,23 @@ const ConfigurationCard = () => {
 
                     <label htmlFor="pages">
                         Lista de páginas:
+                        <select 
+                            name="traco" 
+                            id="traco" 
+                            onChange={(e) => setPages(e.target.value)}
+                        >
+                            <option value={`${inputsT[0]}`}>
+                                Traço 1
+                            </option>
+
+                            <option value={`${inputsT[1]}`}>
+                                Traço 2 (Anomalia de Belady)
+                            </option>
+
+                            <option value={`${inputsT[2]}`}>
+                                Traço 3 (Acessos de Escrita)
+                            </option>
+                        </select>
                     </label>
 
                     <textarea
@@ -113,7 +156,6 @@ const ConfigurationCard = () => {
                         id="pages"
                         value={pages}
                         onChange={(e) => setPages(e.target.value)}
-                        placeholder="Ex.: 1, 3, 4, 5 ou 1R, 2W, 3R"
                     />
 
                 </div>
@@ -126,7 +168,10 @@ const ConfigurationCard = () => {
                         Iniciar Simulação
                     </button>
 
-                    <button className="reset-button">
+                    <button 
+                        className="reset-button"
+                        onClick={resetar}
+                    >
                         Resetar
                     </button>
                 </div>
@@ -139,11 +184,19 @@ const ConfigurationCard = () => {
                 taxa_faltas={taxa}
                 evic={evic}
                 w_disco={w_disco}
+                faltas={faltas}
             />
 
-            <SimulationCard resultado={resultado}/>
+            <SimulationCard 
+                resultado={resultado} 
+                step={step}
+                setStep={setStep}
+            />
 
-            <HistoryCard />
+            <HistoryCard
+                historico={resultado?.historico || []}
+                step={step}
+            />
         </>
     );
 };

@@ -1,9 +1,7 @@
 import "./index.css";
 import Frame from "./frames";
-import { useState } from "react";
 
-const SimulationCard = ({ resultado }) => {
-    const [step, setStep] = useState(1);
+const SimulationCard = ({ resultado, step, setStep }) => {
     if (!resultado) {
         return (
             <div className="simulation-card">
@@ -43,7 +41,6 @@ const SimulationCard = ({ resultado }) => {
                 >
                     Próximo
                 </button>
-                <button className="autoplay-button">Auto play</button>
             </div>
 
             <div className="box-step">

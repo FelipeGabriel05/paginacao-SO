@@ -43,6 +43,19 @@
     box-sizing: border-box;
 }
 
+#traco {
+    background: #120D1F;
+    color: var(--text-h);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-family: var(--sans);
+    font-size: 15px;
+    box-sizing: border-box;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
 #algoritmo:focus,
 #frames:focus,
 #pages:focus {

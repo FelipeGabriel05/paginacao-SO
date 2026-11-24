@@ -1,7 +1,7 @@
 // import { Resultados } from "../Header/header";
 import "./index.css";
 
-const ResultsCard = ({n_frames, pages, taxa_faltas, evic, w_disco}) => {
+const ResultsCard = ({n_frames, pages, taxa_faltas, evic, w_disco, faltas}) => {
     return (
         <>
             <div>
@@ -14,6 +14,10 @@ const ResultsCard = ({n_frames, pages, taxa_faltas, evic, w_disco}) => {
                     <div className="box-inform">
                         <h3>Referências</h3>
                         <p>{pages}</p>
+                    </div>
+                    <div className="box-inform">
+                        <h3>Faltas</h3>
+                        <p>{faltas}</p>
                     </div>
                     <div className="box-inform">
                         <h3>Taxa de faltas</h3>
