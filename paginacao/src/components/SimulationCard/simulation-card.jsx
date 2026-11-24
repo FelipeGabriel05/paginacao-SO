@@ -2,20 +2,52 @@ import "./index.css";
 import Frame from "./frames";
 import { useState } from "react";
 
-const SimulationCard = () => {
-    const [step, setStep] = useState(1)
-    const total = 20
+const SimulationCard = ({ resultado }) => {
+    const [step, setStep] = useState(1);
+    if (!resultado) {
+        return (
+            <div className="simulation-card">
+                <p>Inicie uma simulação para visualizar os passos.</p>
+            </div>
+        );
+    }
+    const historico = resultado.historico;
+    const passoAtual = historico[step - 1]
+
+    const proximoPasso = () => {
+        if (step < resultado.referencias) {
+            setStep(step + 1);
+        }
+    };
+
+    const passoAnterior = () => {
+        if (step > 1) {
+            setStep(step - 1);
+        }
+    };
+
+    // Ainda não existe simulação
     return (
         <div className="simulation-card">
 
             <div className="simulation-controls">
-                <button className="previous-button">Anterior</button>
-                <button className="next-button">Próximo</button>
+                <button 
+                    className="previous-button"
+                    onClick={passoAnterior}
+                >
+                    Anterior
+                </button>
+                <button 
+                    className="next-button"
+                    onClick={proximoPasso}
+                >
+                    Próximo
+                </button>
                 <button className="autoplay-button">Auto play</button>
             </div>
 
             <div className="box-step">
-                Passo: {step}/20
+                Passo: {step}/{resultado.referencias}
             </div>
 
             <div className="simulation-legend">
@@ -36,40 +68,59 @@ const SimulationCard = () => {
             </div>
 
             <div className="box-step-history">
-                <strong>Passo 1: Acesso à página 5</strong>
+                <strong>Passo {passoAtual.passo}: Acesso à página {passoAtual.pagina}</strong>
 
-                <span className="fault-text">
-                    ✗ FALHA DE PÁGINA
+                <span
+                    className={
+                        passoAtual.resultado === "falha"
+                            ? "fault-text"
+                            : "hit-text"
+                    }
+                >
+                    {passoAtual.resultado === "falha"
+                        ? "✗ FALHA DE PÁGINA"
+                        : "✓ ACERTO"
+                    }
                 </span>
 
-                <span>
-                    Página carregada no quadro vazio 0
-                </span>
+                {/* Mostra somente quando houve escrita */}
+                {passoAtual.escrita && (
+                    <span className="write-text">
+                        ⚠ Escrita em disco necessária: página {" "}
+                        {passoAtual.paginaEscrita}
+                    </span>
+                )}
+
             </div>
 
             <div className="box-frame">
                 <h3>Frames do buffer</h3>
 
                 <div className="frames-container">
-                    <Frame numero={0} pagina={7} estado="hit" />
-                    <Frame numero={1} pagina={0} estado="fault" />
-                    <Frame numero={2} pagina={1} estado="unused" />
-                    <Frame numero={3} pagina={null} estado="empty" />
-                    <Frame numero={0} pagina={null} estado="empty" />
-                    <Frame numero={1} pagina={null} estado="empty" />
-                    <Frame numero={2} pagina={null} estado="empty" />
-                    <Frame numero={3} pagina={null} estado="empty" />
-                    <Frame numero={0} pagina={null} estado="empty" />
-                    <Frame numero={0} pagina={null} estado="empty" />
+                    {passoAtual.frames.map((frame, index) => {
 
-                    {/* {frames.map((frame, index) => (
-                        <Frame
-                            key={index}
-                            numero={index}
-                            pagina={frame.pagina}
-                            estado={frame.estado}
-                        />
-                    ))} */}
+                        let estado = "unused";
+
+                        if (frame.pagina === null) {
+                            estado = "empty";
+                        }
+
+                        if (index === passoAtual.frameAlterado) {
+                            estado =
+                                passoAtual.resultado === "acerto"
+                                    ? "hit"
+                                    : "fault";
+                        }
+
+                        return (
+                            <Frame
+                                key={index}
+                                numero={index}
+                                pagina={frame.pagina}
+                                estado={estado}
+                            />
+                        );
+                    })}
                 </div>
             </div>
         </div>

@@ -8,6 +8,8 @@ function fifo(Lista_pages, total_frames) {
     const resultado = criarResultado();
 
     let ponteiro = 0;
+    
+    let frameAlterado;      // Guarda qual frame foi alterado nesta referência
 
     for (let i = 0; i < Lista_pages.length; i++) {
         const referencia = Lista_pages[i];
@@ -38,6 +40,9 @@ function fifo(Lista_pages, total_frames) {
                 passo: i + 1,
                 pagina: pagina,
                 resultado: "acerto",
+                frameAlterado: frameEncontrado,
+                escrita: false,     // Não houve escrita em disco neste passo
+                paginaEscrita: null,
                 frames: structuredClone(frames)
             });
 
@@ -52,7 +57,12 @@ function fifo(Lista_pages, total_frames) {
             frame => frame.pagina === null
         );
 
+        let escrita = false;    // Indica se houve escrita em disco
+        let paginaEscrita = null; // Indica qual página foi escrita
+
         if (frameVazio !== -1) {
+
+            frameAlterado = frameVazio;
 
             // Coloca a página no menor frame vazio
             frames[frameVazio].pagina = pagina;
@@ -67,9 +77,15 @@ function fifo(Lista_pages, total_frames) {
 
             // Todos os frames estão ocupados
 
+            // O frame apontado pelo ponteiro será substituído
+            frameAlterado = ponteiro;
+
             // Verifica se a página que será removida
             // foi modificada. Se true significa que vai ocorrer uma escrita.
             if (frames[ponteiro].modificada) {
+                // será necessário escrever a página no disco.
+                escrita = true;
+                paginaEscrita = frames[ponteiro].pagina;
                 resultado.escritas++;
             }
 
@@ -93,6 +109,9 @@ function fifo(Lista_pages, total_frames) {
             passo: i + 1,
             pagina: pagina,
             resultado: "falha",
+            frameAlterado: frameAlterado,   // Frame que recebeu a nova página
+            escrita: escrita,
+            paginaEscrita: paginaEscrita,
             frames: structuredClone(frames)
         });
         // structuredClone(frames) = faz uma cópia. Representa o histórico desse momento de execução.
