@@ -41,8 +41,8 @@ function fifo(Lista_pages, total_frames) {
                 pagina: pagina,
                 resultado: "acerto",
                 frameAlterado: frameEncontrado,
-                escrita: false,     // Não houve escrita em disco neste passo
-                paginaEscrita: null,
+                escrita: false,         // Não houve escrita em disco neste passo
+                paginaEscrita: null,    // descreve qual página foi escrita no disco
                 frames: structuredClone(frames)
             });
 
@@ -64,7 +64,7 @@ function fifo(Lista_pages, total_frames) {
 
             frameAlterado = frameVazio;
 
-            // Coloca a página no menor frame vazio
+            // Coloca a página no frame vazio
             frames[frameVazio].pagina = pagina;
             frames[frameVazio].carregadaEm = i;
             frames[frameVazio].ultimoAcesso = i;

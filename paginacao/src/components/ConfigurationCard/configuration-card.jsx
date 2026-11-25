@@ -5,6 +5,7 @@ import SimulationCard from "../../components/SimulationCard/simulation-card";
 import fifo from "../../pagination/algorithms/fifo";
 import { parsePages } from "../../pagination/utils/parsePages";
 import { useState } from "react";
+import optimal from "../../pagination/algorithms/optimal";
 
 const ConfigurationCard = () => {
     const [algoritmo, setAlgoritmo] = useState("FIFO");
@@ -36,6 +37,17 @@ const ConfigurationCard = () => {
 
             if (algoritmo === "FIFO") {
                 const resultado = fifo(listaPages, frames);
+                setResultado(resultado);
+                console.log("Resultado:", resultado);
+
+                setTaxas(resultado.taxaFaltas);
+                setEvics(resultado.eviccoes);
+                setW_disco(resultado.escritas);
+                setFaltas(resultado.faltas);
+            }
+
+            if (algoritmo === "OTIMO") {
+                const resultado = optimal(listaPages, frames);
                 setResultado(resultado);
                 console.log("Resultado:", resultado);
 
