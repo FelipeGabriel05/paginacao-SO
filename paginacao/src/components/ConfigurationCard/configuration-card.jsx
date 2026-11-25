@@ -22,47 +22,50 @@ const ConfigurationCard = () => {
     const [faltas, setFaltas] = useState(0);
 
     const inputsT = [
-        "7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1", 
-        "1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5", 
+        "7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1",
+        "1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5",
         "1w, 2r, 3w, 1r, 4r, 2w, 5r, 3r, 1w, 4r"
     ]
 
     const iniciarSimulacao = () => {
         try {
+            resetar();
             const listaPages = parsePages(pages);
             setTotalPages(listaPages.length);
             console.log("Algoritmo:", algoritmo);
             console.log("Frames:", frames);
             console.log("Páginas:", listaPages);
 
-            if (algoritmo === "FIFO") {
-                const resultado = fifo(listaPages, frames);
-                setResultado(resultado);
-                console.log("Resultado:", resultado);
+            let resultado;
 
-                setTaxas(resultado.taxaFaltas);
-                setEvics(resultado.eviccoes);
-                setW_disco(resultado.escritas);
-                setFaltas(resultado.faltas);
-            }
+            switch (algoritmo) {
 
-            if (algoritmo === "OTIMO") {
-                const resultado = optimal(listaPages, frames);
-                setResultado(resultado);
-                console.log("Resultado:", resultado);
+                case "FIFO":
+                    resultado = fifo(listaPages, frames);
+                    break;
 
-                setTaxas(resultado.taxaFaltas);
-                setEvics(resultado.eviccoes);
-                setW_disco(resultado.escritas);
-                setFaltas(resultado.faltas);
+                case "OTIMO":
+                    resultado = optimal(listaPages, frames);
+                    break;
+
+                default:
+                    console.error("Algoritmo não implementado:", algoritmo);
+                    return;
             }
-        }   catch (erro) {
-                console.error(
-                    "Erro ao iniciar simulação:",
-                    erro
-                );
-            }
-        };
+            console.log("Resultado:", resultado);
+
+            setResultado(resultado);
+            setTaxas(resultado.taxaFaltas);
+            setEvics(resultado.eviccoes);
+            setW_disco(resultado.escritas);
+            setFaltas(resultado.faltas);
+        } catch (erro) {
+            console.error(
+                "Erro ao iniciar simulação:",
+                erro
+            );
+        }
+    };
 
     const resetar = () => {
         setResultado(null);
@@ -144,9 +147,9 @@ const ConfigurationCard = () => {
 
                     <label htmlFor="pages">
                         Lista de páginas:
-                        <select 
-                            name="traco" 
-                            id="traco" 
+                        <select
+                            name="traco"
+                            id="traco"
                             onChange={(e) => setPages(e.target.value)}
                         >
                             <option value={`${inputsT[0]}`}>
@@ -180,7 +183,7 @@ const ConfigurationCard = () => {
                         Iniciar Simulação
                     </button>
 
-                    <button 
+                    <button
                         className="reset-button"
                         onClick={resetar}
                     >
@@ -199,8 +202,8 @@ const ConfigurationCard = () => {
                 faltas={faltas}
             />
 
-            <SimulationCard 
-                resultado={resultado} 
+            <SimulationCard
+                resultado={resultado}
                 step={step}
                 setStep={setStep}
             />
