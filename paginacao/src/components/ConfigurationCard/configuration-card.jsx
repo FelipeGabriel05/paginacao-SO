@@ -6,6 +6,7 @@ import fifo from "../../pagination/algorithms/fifo";
 import { parsePages } from "../../pagination/utils/parsePages";
 import { useState } from "react";
 import optimal from "../../pagination/algorithms/optimal";
+import clock from "../../pagination/algorithms/clock";
 
 const ConfigurationCard = () => {
     const [algoritmo, setAlgoritmo] = useState("FIFO");
@@ -46,6 +47,10 @@ const ConfigurationCard = () => {
 
                 case "OTIMO":
                     resultado = optimal(listaPages, frames);
+                    break;
+
+                case "CLOCK":
+                    resultado = clock(listaPages, frames);
                     break;
 
                 default:
