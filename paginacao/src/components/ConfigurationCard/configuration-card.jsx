@@ -7,6 +7,7 @@ import { parsePages } from "../../pagination/utils/parsePages";
 import { useState } from "react";
 import optimal from "../../pagination/algorithms/optimal";
 import clock from "../../pagination/algorithms/clock";
+import lfu from "../../pagination/algorithms/lfu";
 
 const ConfigurationCard = () => {
     const [algoritmo, setAlgoritmo] = useState("FIFO");
@@ -52,7 +53,18 @@ const ConfigurationCard = () => {
                 case "CLOCK":
                     resultado = clock(listaPages, frames);
                     break;
-
+                case "LFU":
+                    resultado = lfu(listaPages, frames);
+                    break;
+                
+                case "LRU":
+                    // resultado = lru(listaPages, frames);
+                    break;
+                
+                case "MFU":
+                    // resultado = mfu(listaPages, frames);
+                    break;
+                
                 default:
                     console.error("Algoritmo não implementado:", algoritmo);
                     return;
