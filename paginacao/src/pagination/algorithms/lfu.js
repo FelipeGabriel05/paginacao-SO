@@ -22,7 +22,7 @@ function lfu(Lista_pages, total_frames) {
         // Se encontra, retorna o índice onde ele está
         const frameEncontrado = frames.findIndex(
             frame => frame.pagina === pagina
-        );  A
+        );
 
         // ACERTO
         if (frameEncontrado !== -1) {
