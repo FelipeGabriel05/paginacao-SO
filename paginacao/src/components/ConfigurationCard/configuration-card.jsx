@@ -9,6 +9,7 @@ import optimal from "../../pagination/algorithms/optimal";
 import clock from "../../pagination/algorithms/clock";
 import lfu from "../../pagination/algorithms/lfu";
 import lru from "../../pagination/algorithms/lru";
+import mfu from "../../pagination/algorithms/mfu";
 
 const ConfigurationCard = () => {
     const [algoritmo, setAlgoritmo] = useState("FIFO");
@@ -63,7 +64,7 @@ const ConfigurationCard = () => {
                     break;
                 
                 case "MFU":
-                    // resultado = mfu(listaPages, frames);
+                    resultado = mfu(listaPages, frames);
                     break;
                 
                 default:
