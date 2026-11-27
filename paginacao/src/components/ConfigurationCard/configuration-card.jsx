@@ -56,6 +56,15 @@ const ConfigurationCard = () => {
                 case "LFU":
                     resultado = lfu(listaPages, frames);
                     break;
+                
+                case "LRU":
+                    // resultado = lru(listaPages, frames);
+                    break;
+                
+                case "MFU":
+                    // resultado = mfu(listaPages, frames);
+                    break;
+                
                 default:
                     console.error("Algoritmo não implementado:", algoritmo);
                     return;
